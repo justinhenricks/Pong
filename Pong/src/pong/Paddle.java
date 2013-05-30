@@ -1,58 +1,39 @@
 package pong;
 
-import java.awt.event.KeyEvent;
-import javax.swing.ImageIcon;
+import java.awt.Color;
+import java.awt.Graphics;
 
-public class Paddle extends Sprite {
-	/*String paddle = "../img/paddle.png";
+public class Paddle {
+	private final int HEIGHT = 80;
+	private final int WIDTH = 35;
+	private int x = 10; 
+	private int y = 300;
+	private int dx = -5;
+	private int dy = -5;
 	
-	int dy;
-	
-	public Paddle() {
-		ImageIcon imageIcon = new ImageIcon(this.getClass().getResource(paddle));
-		super.image = imageIcon.getImage();
-		super.width = image.getWidth(null);
-		super.height = image.getHeight(null);
+	public Paddle(){
 		
-		resetState();
 	}
 	
-	public void move(){
+	public void update(){
 		y += dy;
-		if(y <= 2){
-			y = 2;
+		
+		if(x <= 0){
+			dx = 5;
 		}
-		if(y >= Commons.PADDLE_TOP){
-			y = Commons.PADDLE_TOP;
+		else if(x + HEIGHT >= 1200){
+			dx = -1;
+		}
+		else if(y <= 0){
+			dy = 5;
+		}
+		else if(y + HEIGHT + 20 >= 600){
+			dy = -5;
 		}
 	}
 	
-	public void keyPressed(KeyEvent e){
-		int key = e.getKeyCode();
-		
-		if(key == KeyEvent.VK_UP){
-			dy = 2;
-		}
-		
-		if(key == KeyEvent.VK_DOWN){
-			dy = -2;
-		}
+	public void paint(Graphics g){
+		g.setColor(Color.BLACK);
+		g.fillRect(x, y, WIDTH, HEIGHT);
 	}
-	
-	public void keyReleased(KeyEvent e){
-		int key = e.getKeyCode();
-		
-		if(key == KeyEvent.VK_UP){
-			dy = 0;
-		}
-		
-		if(key == KeyEvent.VK_DOWN){
-			dy = 0;
-		}
-	}
-	
-	public void resetState(){
-		super.x = 200;
-		super.y = 360;
-	}*/
 }

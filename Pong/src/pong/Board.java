@@ -31,6 +31,7 @@ public class Board extends JPanel implements ActionListener {
 	
 	private void update(){
 		ball.update();
+		paddle.update();
 	}
 	
 	@Override
@@ -38,6 +39,7 @@ public class Board extends JPanel implements ActionListener {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, 1200, 600);
 		ball.paint(g);
+		paddle.paint(g);
 	}
 	
 	public void actionPerformed(ActionEvent e){
