@@ -34,6 +34,9 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 	private void update(){
 		ball.update();
 		paddleLeft.update();
+		if(ball.collision(paddleLeft)){
+			ball.goRight();
+		}
 	}
 	
 	@Override

@@ -35,4 +35,12 @@ public class Paddle {
 	public int getHeight(){
 		return HEIGHT;
 	}
+	
+	public int getWidth(){
+		return WIDTH;
+	}
+	
+	public int getX(){
+		return x;
+	}
 }

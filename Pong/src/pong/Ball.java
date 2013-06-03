@@ -20,16 +20,16 @@ public class Ball {
 		y += dy;
 		
 		if(x <= 0){
-			dx = 8;
+			goRight();
 		}
 		else if(x + SIZE >= Pong.WIDTH){
-			dx = -8;
+			goLeft();
 		}
 		else if(y <= 0){
-			dy = 8;
+			goDown();
 		}
 		else if(y + SIZE + 20 >= Pong.HEIGHT){
-			dy = -8;
+			goUp();
 		}
 	}
 	
@@ -38,7 +38,29 @@ public class Ball {
 		g.fillOval(x, y, SIZE, SIZE);
 	}
 	
-	public boolean collision(){
-		
+	public boolean collision(Paddle p){
+		if((x <= p.getX() + p.getWidth()-1) && 
+				(y >= p.getY() && y <= p.getY() + p.getHeight()-1)){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public void goRight(){
+		dx = 8;
+	}
+	
+	public void goLeft(){
+		dx = -8;
+	}
+	
+	public void goDown(){
+		dy = 8;
+	}
+	
+	public void goUp(){
+		dy = -8;
 	}
 }
