@@ -3,11 +3,13 @@ import java.awt.Graphics;
 import java.awt.Color;
 
 public class Ball {
-	private final int SIZE = 40;
-	private int x = 600; 
-	private int y = 300;
-	private int dx = -5;
-	private int dy = -5;
+	private final int SIZE = 30;
+	private final int X_SPEED = -8;
+	private final int Y_SPEED = -8;
+	private int x = Pong.WIDTH / 2; 
+	private int y = Pong.HEIGHT / 2;
+	private int dx = X_SPEED;
+	private int dy = Y_SPEED;
 	
 	public Ball(){
 		
@@ -18,21 +20,25 @@ public class Ball {
 		y += dy;
 		
 		if(x <= 0){
-			dx = 5;
+			dx = 8;
 		}
-		else if(x + SIZE >= 1200){
-			dx = -1;
+		else if(x + SIZE >= Pong.WIDTH){
+			dx = -8;
 		}
 		else if(y <= 0){
-			dy = 5;
+			dy = 8;
 		}
-		else if(y + SIZE + 20 >= 600){
-			dy = -5;
+		else if(y + SIZE + 20 >= Pong.HEIGHT){
+			dy = -8;
 		}
 	}
 	
 	public void paint(Graphics g){
-		g.setColor(Color.BLACK);
+		g.setColor(Color.WHITE);
 		g.fillOval(x, y, SIZE, SIZE);
+	}
+	
+	public boolean collision(){
+		
 	}
 }

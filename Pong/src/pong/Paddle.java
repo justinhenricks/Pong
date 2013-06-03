@@ -4,36 +4,35 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Paddle {
-	private final int HEIGHT = 80;
-	private final int WIDTH = 35;
-	private int x = 10; 
-	private int y = 300;
-	private int dx = -5;
-	private int dy = -5;
+	private final int HEIGHT = 90;
+	private final int WIDTH = 25; 
+	private int x;
+	private int y;
+	private int dy = 0;
 	
-	public Paddle(){
-		
+	public Paddle(int x, int y){
+		this.x = x;
+		this.y = y;
 	}
 	
 	public void update(){
 		y += dy;
-		
-		if(x <= 0){
-			dx = 5;
-		}
-		else if(x + HEIGHT >= 1200){
-			dx = -1;
-		}
-		else if(y <= 0){
-			dy = 5;
-		}
-		else if(y + HEIGHT + 20 >= 600){
-			dy = -5;
-		}
 	}
 	
 	public void paint(Graphics g){
-		g.setColor(Color.BLACK);
+		g.setColor(Color.WHITE);
 		g.fillRect(x, y, WIDTH, HEIGHT);
+	}
+	
+	public void setDy(int dy){
+		this.dy = dy;
+	}
+	
+	public int getY(){
+		return y;
+	}
+	
+	public int getHeight(){
+		return HEIGHT;
 	}
 }
