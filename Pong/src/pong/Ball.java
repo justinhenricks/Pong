@@ -1,15 +1,20 @@
 package pong;
 import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.util.Random;
+
 import java.awt.Color;
 
 public class Ball {
+	Random random = new Random();
 	private final int SIZE = 30;
-	private final int X_SPEED = -8;
-	private final int Y_SPEED = -8;
+	private final int X_SPEED = 1 + random.nextInt(2);
+	private final int Y_SPEED = 1 + random.nextInt(2);
 	private int x = Pong.WIDTH / 2; 
 	private int y = Pong.HEIGHT / 2;
 	private int dx = X_SPEED;
 	private int dy = Y_SPEED;
+	boolean lose = false;
 	
 	public Ball(){
 		
@@ -20,10 +25,10 @@ public class Ball {
 		y += dy;
 		
 		if(x <= 0){
-			goRight();
+			lose = true;
 		}
 		else if(x + SIZE >= Pong.WIDTH){
-			goLeft();
+			lose = true;
 		}
 		else if(y <= 0){
 			goDown();
@@ -38,29 +43,42 @@ public class Ball {
 		g.fillOval(x, y, SIZE, SIZE);
 	}
 	
+	public Rectangle getBounds(){
+		return new Rectangle(x, y, SIZE, SIZE);
+	}
+	
 	public boolean collision(Paddle p){
-		if((x <= p.getX() + p.getWidth()-1) && 
-				(y >= p.getY() && y <= p.getY() + p.getHeight()-1)){
-			return true;
-		}
-		else{
-			return false;
-		}
+		Rectangle ball = getBounds();
+		Rectangle paddle = p.getBounds();
+		
+		return ball.intersects(paddle);
 	}
 	
 	public void goRight(){
-		dx = 8;
+		dx = X_SPEED;
 	}
 	
 	public void goLeft(){
-		dx = -8;
+		dx = -X_SPEED;
 	}
 	
 	public void goDown(){
-		dy = 8;
+		dy = Y_SPEED;
 	}
 	
 	public void goUp(){
-		dy = -8;
+		dy = -Y_SPEED;
+	}
+	
+	public int getX(){
+		return x;
+	}
+	
+	public int getY(){
+		return y;
+	}
+	
+	public Boolean isLoss(){
+		return lose;
 	}
 }

@@ -17,14 +17,16 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 	Timer timer;
 	String message = "Game Over";
 	Paddle paddleLeft;
+	Paddle paddleRight;
 	Ball ball;
 	Boolean inGame = true;
 	int timerId;
 	
 	public Board(){
-		paddleLeft = new Paddle(25, 30);
+		paddleLeft = new Paddle(30, 250);
+		paddleRight = new Paddle(1145, 250);
 		ball = new Ball();
-		timer = new Timer(30, this);
+		timer = new Timer(5, this);
 		timer.start();
 		
 		this.addKeyListener(this);
@@ -34,8 +36,15 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 	private void update(){
 		ball.update();
 		paddleLeft.update();
+		paddleRight.update();
 		if(ball.collision(paddleLeft)){
 			ball.goRight();
+		}
+		else if(ball.collision(paddleRight)){
+			ball.goLeft();
+		}
+		else if(ball.isLoss()){
+			timer.stop();
 		}
 	}
 	
@@ -45,6 +54,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, Pong.WIDTH, Pong.HEIGHT);
 		ball.paint(g);
 		paddleLeft.paint(g);
+		paddleRight.paint(g);
 	}
 	
 	public void actionPerformed(ActionEvent e){
@@ -53,19 +63,27 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	public void keyPressed(KeyEvent e){
-		if(e.getKeyCode() == KeyEvent.VK_UP && !(paddleLeft.getY() <= 0)){
-			paddleLeft.setDy(-7);
+		if(e.getKeyCode() == KeyEvent.VK_UP){
+			paddleLeft.setDy(-2);
 		}
-		if(e.getKeyCode() == KeyEvent.VK_DOWN && 
-		!(paddleLeft.getY() + paddleLeft.getHeight() >= 600)){
-			paddleLeft.setDy(7);
+		if(e.getKeyCode() == KeyEvent.VK_DOWN){
+			paddleLeft.setDy(2);
+		}
+		if(e.getKeyCode() == KeyEvent.VK_A){
+			paddleRight.setDy(-2);
+		}
+		if(e.getKeyCode() == KeyEvent.VK_Z){
+			paddleRight.setDy(2);
 		}
 	}
 	
 	public void keyReleased(KeyEvent e){
 		if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN){
 			paddleLeft.setDy(0);
-		}	
+		}
+		if(e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_Z){
+			paddleRight.setDy(0);
+		}
 	}
 	
 	public void keyTyped(KeyEvent e){
